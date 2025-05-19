@@ -1,0 +1,69 @@
+---
+import Welcome from '../components/Welcome.astro';
+import Layout from '../layouts/Layout.astro';
+import { getBlogs } from '../libs/microcms';
+
+// MicroCMS呼び出し
+const response = await getBlogs({ fields: ["id", "title"]});
+
+---
+
+<Layout title="Astro blog">
+	<main>
+		<h1>MAKI`s Blog</h1>
+		<ul>
+			{response.contents.map((blog: any) => (
+			<li>
+			<a href={blog.id}>📝{blog.title}</a>
+			</li>
+			))}
+		</ul>
+	</main>
+</Layout>
+
+<style>
+  body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #c88e8e;
+    line-height: 1.6;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    margin-top: 70px;
+  }
+
+  main {
+    margin: auto;
+    padding: 1em;
+    max-width: 60ch;
+    background-color: #dbdbdb;
+    box-shadow: 0 7px 7px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+  }
+
+  h1 {
+    font-size: 2.5em;
+    color: #334257;
+    text-align: center;
+  }
+
+  ul {
+    padding: 0;
+    list-style-type: none;
+  }
+
+  li {
+    margin-bottom: 10px;
+  }
+
+  a {
+    color: #6884bd;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  a:hover {
+    color: #25603a;
+    text-decoration: underline;
+  }
+</style>
