@@ -1,69 +1,74 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-import { getBlogs } from '../libs/microcms';
+import Welcome from "../components/Welcome.astro";
+import Layout from "../layouts/Layout.astro";
+import { getBlogs } from "../libs/microcms";
 
 // MicroCMS呼び出し
-const response = await getBlogs({ fields: ["id", "title"]});
-
+const response = await getBlogs({ fields: ["id", "title", "image"] });
 ---
+<link rel="stylesheet" href="/style/common.css" />
 
 <Layout title="Astro blog">
-	<main>
-		<h1>MAKI`s Blog</h1>
-		<ul>
-			{response.contents.map((blog: any) => (
-			<li>
-			<a href={blog.id}>📝{blog.title}</a>
-			</li>
-			))}
-		</ul>
-	</main>
+
+    <header class="header">
+    <h1 class="header__name">
+      <a class="header__name-link" href="./">MAKI KASHU</a>
+    </h1>
+    <nav class="header__nav">
+
+      <ul class="nav-list">
+        <li class="nav-list__item">
+          <a class="nav-list__link" href="#anchor-contact">contact</a>
+        </li>
+      </ul>
+      <!-- nav-list -->
+
+    </nav>
+
+  </header>
+  <!-- header -->
+
+  <main class="main">
+    <div class="container">
+      <h2 class="container__ttl">CODE STOCK</h2>
+      <p class="container__txt">案件で使用したコードのストックです。Astroを使って初めてWebページを作成しました。<br>会社都合でサイトを掲載できないため、実際に案件で使用したコードを下記に記載しました。<br>現在はあくまでPCで見た想定でコードを載せています。基本はレスポンシブサイトを作成しておりました。</p>
+      <ul class="container__list">
+        {
+          response.contents.map((blog: any) => (
+            <li class="container__list-item">
+              <a class="container__list-link" href={blog.id}>
+                <span class="container__list-img">
+                  {blog.image?.url && (
+                    <img src={blog.image.url} alt={blog.title} />
+                  )}
+                </span>
+                <span class="container__list-ttl">{blog.title}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div id="anchor-contact" class="contact">
+        <h2 class="contact__ttl">CONTACT</h2>
+        <span class="contact__mail">
+          <a href="mailto:2018casmakikashu@gmail.com" class="contact__link">2018casmakikashu@gmail.com</a>
+        </span>
+      </div>
+      <!-- contact -->
+
+    </div>
+    <!-- container -->
+
+  </main>
+  <footer class="footer">
+    <p class="copylight">
+    <small>@2025 maki.k</small>
+  </p>
+  </footer>
 </Layout>
 
-<style>
-  body {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    color: #c88e8e;
-    line-height: 1.6;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-    margin-top: 70px;
-  }
+<!-- JS -->
+<script type="module" src="/scripts/common.js"></script>
 
-  main {
-    margin: auto;
-    padding: 1em;
-    max-width: 60ch;
-    background-color: #dbdbdb;
-    box-shadow: 0 7px 7px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-  }
 
-  h1 {
-    font-size: 2.5em;
-    color: #334257;
-    text-align: center;
-  }
-
-  ul {
-    padding: 0;
-    list-style-type: none;
-  }
-
-  li {
-    margin-bottom: 10px;
-  }
-
-  a {
-    color: #6884bd;
-    text-decoration: none;
-    font-weight: 600;
-  }
-
-  a:hover {
-    color: #25603a;
-    text-decoration: underline;
-  }
-</style>
