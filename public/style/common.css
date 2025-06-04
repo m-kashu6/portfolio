@@ -262,8 +262,6 @@ ul {
 }
 
 .container__list-ttl {
-    padding-left: 1em;
-    text-indent: -1.5em;
     display: block;
     margin-top: 30px;
 }
