@@ -40,3 +40,109 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener("DOMContentLoaded", function () {
 Prism.highlightAll();
 });
+
+
+/**
+ * スクロールでフェードイン
+ * @function
+ */
+window.addEventListener('load', () => {
+    'use strict';
+
+    function scrollAddClass(
+        targetElm, //ターゲット要素
+        activeClass, //付与するクラス
+        optionRootMargin, //optionのrootMargin
+        optionThreshold //optionのthreshold
+    ) {
+        const targets = document.querySelectorAll(targetElm);
+
+        // Intersection Observerのオプション
+        const options = {
+            rootMargin: optionRootMargin,
+            threshold: optionThreshold
+        };
+
+        // Intersection Observerのインスタンス生成
+        const observer = new IntersectionObserver(callback, options);
+
+        // callback
+        function callback(entries) {
+            entries.forEach((entry, index) => {
+                const target = entry.target;
+                const delay = index * 100;
+
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        target.classList.add(activeClass);
+                        observer.unobserve(target); //対象要素の監視を停止
+                    }, delay);
+                }
+            });
+        }
+
+        // 対象を監視
+        for (const target of targets) {
+            observer.observe(target);
+        }
+    }
+
+    // 例：対象要素が画面下から20%の位置に到達したらクラス付与
+    scrollAddClass('.js-fadein', 'is-active', '0px 0px -20%', 0); //フェードイン
+    scrollAddClass('.js-fadein-up', 'is-active', '0px 0px -20%', 0); //フェードインアップ
+    scrollAddClass('.js-slidein-to-left', 'is-active', '0px 0px -20%', 0); //左にスライドイン
+    scrollAddClass('.js-slidein-to-right', 'is-active', '0px 0px -20%', 0); //右にスライドイン
+});
+
+
+/* ---------------------------------------------
+*   フェードイン
+--------------------------------------------- */
+window.addEventListener('load', () => {
+    'use strict';
+
+    function scrollAddClass(
+        targetElm, // ターゲット要素
+        activeClass, // 付与するクラス
+        optionRootMargin, // optionのrootMargin
+        optionThreshold, // optionのthreshold
+        delayBase = 0 // 遅延間隔（デフォルト300ms）
+    ) {
+        const targets = document.querySelectorAll(targetElm);
+
+        // Intersection Observerのオプション
+        const options = {
+            rootMargin: optionRootMargin,
+            threshold: optionThreshold
+        };
+
+        // Intersection Observerのインスタンス生成
+        const observer = new IntersectionObserver(callback, options);
+
+        // callback
+        function callback(entries) {
+            entries.forEach((entry) => {
+                const target = entry.target;
+
+                if (entry.isIntersecting) {
+                    // 同じ位置に複数の要素がある場合でも、順番に表示
+                    const siblings = [...targets]; // すべてのターゲットを配列化
+                    const index = siblings.indexOf(target); // 現在の要素のインデックス
+                    const delay = index * delayBase; // 遅延をインデックスに基づいて計算
+
+                    setTimeout(() => {
+                        target.classList.add(activeClass);
+                        observer.unobserve(target); // 対象要素の監視を停止
+                    }, delay);
+                }
+            });
+        }
+
+        // 対象を監視
+        targets.forEach((target) => {
+            observer.observe(target);
+        });
+    }
+    
+    scrollAddClass('.js-blur-spot', 'is-active', '0px 0px -20%', 0); //ぼかしanime
+});

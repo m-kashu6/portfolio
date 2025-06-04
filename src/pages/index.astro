@@ -30,12 +30,12 @@ const response = await getBlogs({ fields: ["id", "title", "image"] });
 
   <main class="main">
     <div class="container">
-      <h2 class="container__ttl">CODE STOCK</h2>
-      <p class="container__txt">案件で使用したコードのストックです。Astroを使って初めてWebページを作成しました。<br>会社都合でサイトを掲載できないため、実際に案件で使用したコードを下記に記載しました。<br>現在はあくまでPCで見た想定でコードを載せています。基本はレスポンシブサイトを作成しておりました。</p>
+      <h2 class="container__ttl js-fadein">CODE STOCK</h2>
+      <p class="container__txt js-fadein">案件で使用したコードのストックです。Astroを使って初めてWebページを作成しました。<br>会社都合でサイトを掲載できないため、使用したコードを下記にいくつか記載しました。<br>現在はあくまでPCで見た想定でコードを載せていますが、基本はレスポンシブサイトを作成しておりました。</p>
       <ul class="container__list">
         {
           response.contents.map((blog: any) => (
-            <li class="container__list-item">
+            <li class="container__list-item js-fadein">
               <a class="container__list-link" href={blog.id}>
                 <span class="container__list-img">
                   {blog.image?.url && (
@@ -70,5 +70,7 @@ const response = await getBlogs({ fields: ["id", "title", "image"] });
 
 <!-- JS -->
 <script type="module" src="/scripts/common.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
 
 
