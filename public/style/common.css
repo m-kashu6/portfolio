@@ -196,6 +196,7 @@ ul {
 .date {
     margin-block: 20px;
     color: var(--blue1);
+    font-size: 14px;
 }
 
 /* container */
@@ -352,4 +353,3 @@ ul {
   opacity: 1;
   transition: opacity 1s;
 }
-
