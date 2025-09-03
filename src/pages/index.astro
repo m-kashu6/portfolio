@@ -1,0 +1,75 @@
+---
+import Welcome from "../components/Welcome.astro";
+import Layout from "../layouts/Layout.astro";
+import { getBlogs } from "../libs/microcms";
+
+// MicroCMS呼び出し
+const response = await getBlogs({ fields: ["id", "title", "image"] });
+---
+<link rel="stylesheet" href="/style/common.css" />
+
+<Layout title="maki-k-codestock">
+
+  <header class="header">
+    <h1 class="header__name">
+      <a class="header__name-link" href="/">MAKI KASHU</a>
+    </h1>
+    <nav class="header__nav">
+
+      <ul class="nav-list">
+        <li class="nav-list__item">
+          <a class="nav-list__link" href="#anchor-contact">contact</a>
+        </li>
+      </ul>
+      <!-- nav-list -->
+    </nav>
+
+    </header>
+    <!-- header -->
+
+  <main class="main">
+    <div class="container">
+      <h2 class="container__ttl js-fadein">CODE STOCK</h2>
+      <p class="container__txt js-fadein">案件で使用したコードのストックです。Astroを使って初めてWebページを作成しました。<br>会社都合でサイトを掲載できないため、使用したコードを下記にいくつか記載しました。<br>現在はあくまでPCで見た想定でコードを載せていますが、基本はレスポンシブサイトを作成しておりました。</p>
+      <ul class="container__list">
+        {
+          response.contents.map((blog: any) => (
+            <li class="container__list-item js-fadein">
+              <a class="container__list-link" href={blog.id}>
+                <span class="container__list-img">
+                  {blog.image?.url && (
+                    <img src={blog.image.url} alt={blog.title} />
+                  )}
+                </span>
+                <span class="container__list-ttl">{blog.title}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div id="anchor-contact" class="contact">
+        <h2 class="contact__ttl">CONTACT</h2>
+        <span class="contact__mail">
+          <a href="mailto:2018casmakikashu@gmail.com" class="contact__link">2018casmakikashu@gmail.com</a>
+        </span>
+      </div>
+      <!-- contact -->
+
+    </div>
+    <!-- container -->
+
+  </main>
+  <footer class="footer">
+    <p class="copylight">
+    <small>@2025 maki.k</small>
+  </p>
+  </footer>
+</Layout>
+
+<!-- JS -->
+<script type="module" src="/scripts/common.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+
+

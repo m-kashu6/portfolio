@@ -1,0 +1,355 @@
+/* ---------------------------------------------
+*   base reset style
+--------------------------------------------- */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video, hr {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    font-size: 100%;
+    vertical-align: baseline;
+}
+
+* {
+box-sizing: border-box;
+}
+
+
+html {
+    line-height: 1;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+caption, th, td {
+    text-align: left;
+    font-weight: normal;
+    vertical-align: middle;
+}
+
+q, blockquote {
+    quotes: none;
+}
+
+q:before, q:after, blockquote:before, blockquote:after {
+    content: "";
+    content: none;
+    clear: both;
+}
+
+a img {
+    border: none;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+    display: block;
+}
+
+/* ---------------------------------------------
+*   form parts reset style
+--------------------------------------------- */
+input, button, textarea, select {
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    background: none;
+    text-overflow: "";
+    -webkit-appearance: none;
+    text-indent: 0.01px;
+    -moz-appearance: none;
+    appearance: none;
+    font-family: var(--ff-root);
+}
+
+button {
+    touch-action: manipulation;
+    cursor: pointer;
+}
+
+textarea {
+    display: block;
+    overflow: auto;
+    resize: none;
+}
+
+select {
+    cursor: pointer;
+}
+select::-ms-expand {
+    display: none;
+}
+
+:root {
+    --base: #333333;
+    --blue1: #71829c;
+    --gray1: #dbdbdb;
+    --gray2: #f0f0f0;
+    --green1: #009933;
+    --pink1: #c88e8e;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--pink1);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    color: var(--base);
+    font-weight: 700;
+}
+
+a {
+    box-sizing: border-box;
+    text-decoration: none;
+    color: var(--base);
+}
+
+ul {
+    list-style: none;
+}
+
+/* header */
+.header {
+    position: fixed;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background-color: var(--gray1);
+    z-index: 999;
+}
+
+.header__name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--base);
+}
+
+.header__name-link {
+    transition: opacity .3s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+.header__name-link:hover {
+        opacity: 0.8;
+    }
+}
+
+/* nav-list */
+.nav-list {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    column-gap: 20px;
+}
+
+.nav-list__link {
+    display: inline-block;
+    color: var(--base);
+    font-size:120%;
+    text-decoration:none;
+    position: relative;
+    transition: opacity .3s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+.nav-list__link:hover {
+        opacity: 0.8;
+    }
+}
+
+/* main */
+.main {
+    margin: auto;
+    padding: 137px 20px 3em;
+    max-width: 1040px;
+}
+
+/* ttl */
+.ttl {
+    font-size: 1.5rem;
+}
+
+/* date */
+.date {
+    margin-block: 20px;
+    color: var(--blue1);
+    font-size: 14px;
+}
+
+/* container */
+.container__list {
+    margin: auto;
+    padding: 1em;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.container__ttl {
+    font-size: 2.5em;
+    color: var(--base);
+    text-align: center;
+}
+
+.container__txt {
+    text-align: center;
+    font-size: 1rem;
+}
+
+.container__list {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: calc(40 / 1000 * 100%);
+    margin-top: calc(100 / 1000 * 100%);
+}
+
+.container__list-item {
+    width: calc(50% - calc(40 / 1000 * 100%) / 2);
+    background-color: var(--gray2);
+    margin-bottom: calc(40 / 1000 * 100%);
+}
+
+.container__list-link {
+    display: block;
+    width: 100%;
+    color: var(--base);
+    text-decoration: none;
+    font-weight: 600;
+    padding: calc(20 / 500 * 100%) calc(20 / 500 * 100%) calc(60 / 500 * 100%);
+    transition: opacity .3s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+.container__list-link:hover {
+        opacity: 0.8;
+    }
+}
+
+.container__list-img {
+    width: 100%;
+}
+
+.container__list-img img {
+    display: block;
+    width: 100%;
+    max-height: 330px;
+    max-width: 300px;
+    margin-inline: auto;
+    object-fit: cover;
+}
+
+.container__list-ttl {
+    display: block;
+    margin-top: 30px;
+}
+
+/* copylight */
+.copylight {
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: var(--base);
+}
+
+/* contact */
+.contact {
+    text-align: center;
+    margin-top: calc(50 / 1000 * 100%);
+    border-top: 1px solid #000;
+    text-align: left;
+    padding-top: 20px;
+}
+.contact__ttl {
+    font-size:2rem;
+}
+
+.contact__link {
+    font-size: 1.7rem;
+    display: inline-block;
+    color:var(--base);
+    font-size:120%;
+    text-decoration:none;
+    position: relative;
+    transition: .3s;
+}
+
+.contact__link::before,
+.contact__link::after {
+    position: absolute;
+	content: '';
+	width: 0;
+	height: 1px;
+	background-color: var(--base);
+	transition: .3s;
+}
+
+.contact__link::before {
+    top: 0;
+    left: 0;
+}
+
+.contact__link::after {
+    bottom: 0;
+    right: 0;
+}
+
+.contact__link:hover::before,
+.contact__link:hover::after {
+    width: 100%;
+}
+
+/* section */
+.section {
+    margin-top: 50px;
+}
+
+.section__container {
+    height: 300px;
+    overflow: auto;
+}
+
+/* section-demo */
+.section-demo {
+    max-height: 600px;
+    height: 100%;
+}
+
+/* demo-area */
+.demo-area {
+    height: 100%;
+}
+
+/* ---------------------------------------------
+*   js-fadein
+--------------------------------------------- */
+.js-fadein {
+  opacity: 0;
+}
+.js-fadein.is-active {
+  opacity: 1;
+  transition: opacity 1s;
+}
