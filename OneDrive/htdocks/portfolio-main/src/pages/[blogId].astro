@@ -1,0 +1,109 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getBlogsDetail, getBlogs } from "../libs/microcms";
+
+export async function getStaticPaths() {
+  const response = await getBlogs({ fields: ["id"] });
+  return response.contents.map((blog: any) => ({
+    params: {
+      blogId: blog.id,
+    },
+  }));
+}
+
+const { blogId } = Astro.params;
+const blog = await getBlogsDetail(blogId as string);
+---
+<!-- css -->
+<link rel="stylesheet" href="/style/common.css" />
+
+<Layout title="Blog Detail">
+
+  <header class="header">
+    <h1 class="header__name">
+      <a class="header__name-link" href="/">MAKI KASHU</a>
+    </h1>
+    <nav class="header__nav">
+
+      <ul class="nav-list">
+        <li class="nav-list__item">
+          <a class="nav-list__link" href="/#anchor-contact">contact</a>
+        </li>
+      </ul>
+      <!-- nav-list -->
+
+    </nav>
+
+  </header>
+  <!-- header -->
+
+  <main class="main">
+    <h2 class="ttl">{blog.title}</h2>
+    <p class="date">公開日時:{new Date(blog.publishedAt).toLocaleString()}</p>
+    <div set:html={blog.content} />
+
+    <!-- ✅ デモHTMLがあるときだけ表示 -->
+    {blog.demo && (
+      <section class="section-demo section">
+        <h2 class="ttl">Demo</h2>
+        <div class="demo-area" set:html={blog.demo} />
+      </section>
+    )}
+
+    <!-- コードの表示部分 -->
+    {blog.code && (
+      <section class="section">
+        <h2 class="ttl">HTML</h2>
+        <pre class="section__container"><code class="language-html">{blog.code}</code></pre>
+      </section>
+    )}
+
+    <!-- ✅ CSSがあるときだけ適用 -->
+    {blog.css && (
+      // <style set:html={blog.css}></style>
+      <section class="section">
+        <h2 class="ttl">CSS</h2>
+        <pre class="section__container"><code class="language-css">{blog.css}</code></pre>
+      </section>
+    )}
+
+    <!-- ✅ JSがあるときだけ実行 -->
+    {blog.js && (
+    // <pre><code class="language-css">{blog.css}</code></pre>
+      <section class="section">
+        <h2 class="ttl">JS</h2>
+        <pre class="section__container"><code class="language-js">{blog.js}</code></pre>
+      </section>
+    )}
+
+
+    <!-- 🎯 Splideスライダー表示エリア -->
+    <!-- <section class="splide-wrapper">
+      <div class="splide" set:html={blog.demo}></div>
+    </section> -->
+
+  </main>
+
+</Layout>
+
+<!-- PrismのCSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
+
+<!-- PrismのJS（順番に注意 & deferを付ける）-->
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+
+<!-- Prism 自動ハイライト -->
+<script defer>
+  document.addEventListener("DOMContentLoaded", function () {
+    Prism.highlightAll();
+  });
+</script>
+
+<!-- あなたの共通JS -->
+<script type="module" src="/scripts/common.js" defer></script>
+
+<!-- Splide CSS / JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/splidejs/4.1.4/js/splide.min.js" defer></script>
