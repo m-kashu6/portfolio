@@ -1,0 +1,151 @@
+{
+	"name": "vscode-markuplint",
+	"displayName": "Markuplint",
+	"description": "Markuplint for VS Code",
+	"version": "4.8.9",
+	"publisher": "yusukehirao",
+	"license": "MIT",
+	"private": true,
+	"repository": "https://github.com/markuplint/markuplint.git",
+	"icon": "media/icon.png",
+	"galleryBanner": {
+		"color": "#1572eb",
+		"theme": "dark"
+	},
+	"engines": {
+		"vscode": "^1.90.0"
+	},
+	"categories": [
+		"Programming Languages",
+		"Linters"
+	],
+	"activationEvents": [
+		"onLanguage"
+	],
+	"type": "module",
+	"main": "./out/extension.js",
+	"contributes": {
+		"configuration": {
+			"type": "object",
+			"title": "Markuplint configuration",
+			"properties": {
+				"markuplint.enable": {
+					"type": "boolean",
+					"description": "Control whether Markuplint is enabled for HTML files or not.",
+					"scope": "language-overridable",
+					"default": true
+				},
+				"markuplint.debug": {
+					"type": "boolean",
+					"description": "Enable debug mode.",
+					"default": false
+				},
+				"markuplint.targetLanguages": {
+					"type": "array",
+					"description": "Target languages.",
+					"items": {
+						"type": "string"
+					},
+					"default": [
+						"astro",
+						"ejs",
+						"haml",
+						"handlebars",
+						"html",
+						"jade",
+						"javascript",
+						"javascriptreact",
+						"jstl",
+						"liquid",
+						"mustache",
+						"nunjucks",
+						"php",
+						"ruby",
+						"smarty",
+						"svelte",
+						"typescript",
+						"typescriptreact",
+						"vue"
+					]
+				},
+				"markuplint.defaultConfig": {
+					"$ref": "https://raw.githubusercontent.com/markuplint/markuplint/main/config.schema.json",
+					"description": "It's the configuration specified if configuration files do not exist.",
+					"default": {
+						"extends": [
+							"markuplint:recommended"
+						]
+					}
+				},
+				"markuplint.hover.accessibility.enable": {
+					"type": "boolean",
+					"markdownDescription": "Enable the feature that **popup Accessibility Object**",
+					"default": true
+				},
+				"markuplint.hover.accessibility.ariaVersion": {
+					"type": "string",
+					"markdownDescription": "Set `1.1` or `1.2` WAI-ARIA version; Default is `1.2`.",
+					"enum": [
+						"1.1",
+						"1.2"
+					],
+					"default": "1.2"
+				}
+			}
+		},
+		"jsonValidation": [
+			{
+				"fileMatch": "**/{.markuplintrc,.markuplintrc.json}",
+				"url": "https://raw.githubusercontent.com/markuplint/markuplint/main/config.schema.json"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run vscode:build",
+		"vscode:build": "run-p vscode:build:*",
+		"vscode:build:extension": "esbuild src/extension.ts --bundle --packages=external --platform=node --target=node20.9 --format=cjs --outfile=out/extension.js",
+		"vscode:build:server": "esbuild src/server/index.ts --bundle --packages=external --platform=node --target=node20.9 --format=cjs --outfile=out/server.js",
+		"vscode:dev": "run-p vscode:dev:extension vscode:dev:server",
+		"vscode:dev:extension": "yarn vscode:build:extension --watch",
+		"vscode:dev:server": "yarn vscode:build:server --watch",
+		"vscode:typecheck": "tsc",
+		"vscode:test": "run-s vscode:test:pre vscode:test:suite",
+		"vscode:test:suite": "node ./test/suite/run-tests.js",
+		"vscode:test:pre": "esbuild \"test/*.ts\" --platform=node --target=node20.9 --format=cjs --outdir=\"test/suite\"",
+		"vscode:login": "vsce login yusukehirao",
+		"vscode:package": "vsce package --no-yarn",
+		"vscode:release": "vsce publish --no-yarn"
+	},
+	"devDependencies": {
+		"@markuplint-dev/tsconfig": "1.0.8",
+		"@markuplint/file-resolver": "4.9.14",
+		"@types/mocha": "10.0.10",
+		"@types/node": "20.14.12",
+		"@types/semver": "7.7.0",
+		"@types/vscode": "1.90.0",
+		"@vscode/test-electron": "2.5.2",
+		"@vscode/vsce": "3.3.2",
+		"esbuild": "0.25.2",
+		"typescript": "5.8.3"
+	},
+	"dependencies": {
+		"@markuplint/i18n": "4.6.0",
+		"debug": "4.4.0",
+		"glob": "11.0.1",
+		"markuplint": "4.12.0",
+		"mocha": "11.1.0",
+		"semver": "7.7.1",
+		"vscode-languageclient": "9.0.1",
+		"vscode-languageserver": "9.0.1",
+		"vscode-languageserver-textdocument": "1.0.12"
+	},
+	"volta": {
+		"node": "22.14.0",
+		"yarn": "1.22.22"
+	},
+	"__metadata": {
+		"installedTimestamp": 1747041622945,
+		"targetPlatform": "undefined",
+		"size": 49751248
+	}
+}

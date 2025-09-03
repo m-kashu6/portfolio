@@ -1,0 +1,5 @@
+2025-05-12T17:56:29: LogHost: Initializing to normal mode
+2025-05-12T18:02:38: LogHost: SuppressChangeNotifications was called (perhaps via AddRange), yet you do not
+2025-05-12T18:02:38: LogHost: have a subscription to ShouldReset. This probably isn't what you want, as ItemsAdded
+2025-05-12T18:02:38: LogHost: and friends will appear to 'miss' items
+2025-05-12T18:02:40: Could not obtain git dir,  is not a git repo.

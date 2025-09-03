@@ -1,0 +1,13 @@
+[core]
+	autocrlf = true
+[user]
+	name = makikashu
+	email = 2018casmakikashu@gmail.com
+[difftool "sourcetree"]
+	cmd = "'' "
+[mergetool "sourcetree"]
+	cmd = "'' "
+	trustExitCode = false
+	keepBackup = false
+[safe]
+	directory = D:/portfolio-maki_kashu
